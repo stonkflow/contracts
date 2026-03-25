@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package stonkflow;
+
+option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
+
+message PositionSnapshot {
+  string session_id = 1;
+  string exchange = 2;
+  string market = 3;
+  string symbol = 4;
+  int64 quantity = 5;
+  int64 entry_price = 6;
+  int64 unrealized_pnl = 7;
+  int64 updated_at_unix = 8;
+}

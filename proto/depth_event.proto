@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package stonkflow;
+
+option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
+
+message DepthLevel {
+  int64 price = 1;
+  int64 quantity = 2;
+}
+
+message DepthEvent {
+  int64 time = 1;
+  string symbol = 2;
+  repeated DepthLevel bids = 3;
+  repeated DepthLevel asks = 4;
+}

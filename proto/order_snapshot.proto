@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package stonkflow;
+
+option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
+
+message OrderSnapshot {
+  string session_id = 1;
+  string exchange = 2;
+  string market = 3;
+  string order_id = 4;
+  string client_order_id = 5;
+  string symbol = 6;
+  string status = 7;
+  int64 filled_quantity = 8;
+  int64 remaining_quantity = 9;
+  int64 price = 10;
+  int64 updated_at_unix = 11;
+}
