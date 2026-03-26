@@ -21,24 +21,24 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type DiffType int32
+type BalanceSnapshot_DiffType int32
 
 const (
-	DiffType_DIFF_TYPE_UNSPECIFIED DiffType = 0
-	DiffType_DIFF_TYPE_ADDED       DiffType = 1
-	DiffType_DIFF_TYPE_REMOVED     DiffType = 2
-	DiffType_DIFF_TYPE_UPDATED     DiffType = 3
+	BalanceSnapshot_DIFF_TYPE_UNSPECIFIED BalanceSnapshot_DiffType = 0
+	BalanceSnapshot_DIFF_TYPE_ADDED       BalanceSnapshot_DiffType = 1
+	BalanceSnapshot_DIFF_TYPE_REMOVED     BalanceSnapshot_DiffType = 2
+	BalanceSnapshot_DIFF_TYPE_UPDATED     BalanceSnapshot_DiffType = 3
 )
 
-// Enum value maps for DiffType.
+// Enum value maps for BalanceSnapshot_DiffType.
 var (
-	DiffType_name = map[int32]string{
+	BalanceSnapshot_DiffType_name = map[int32]string{
 		0: "DIFF_TYPE_UNSPECIFIED",
 		1: "DIFF_TYPE_ADDED",
 		2: "DIFF_TYPE_REMOVED",
 		3: "DIFF_TYPE_UPDATED",
 	}
-	DiffType_value = map[string]int32{
+	BalanceSnapshot_DiffType_value = map[string]int32{
 		"DIFF_TYPE_UNSPECIFIED": 0,
 		"DIFF_TYPE_ADDED":       1,
 		"DIFF_TYPE_REMOVED":     2,
@@ -46,249 +46,45 @@ var (
 	}
 )
 
-func (x DiffType) Enum() *DiffType {
-	p := new(DiffType)
+func (x BalanceSnapshot_DiffType) Enum() *BalanceSnapshot_DiffType {
+	p := new(BalanceSnapshot_DiffType)
 	*p = x
 	return p
 }
 
-func (x DiffType) String() string {
+func (x BalanceSnapshot_DiffType) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (DiffType) Descriptor() protoreflect.EnumDescriptor {
+func (BalanceSnapshot_DiffType) Descriptor() protoreflect.EnumDescriptor {
 	return file_balance_snapshot_proto_enumTypes[0].Descriptor()
 }
 
-func (DiffType) Type() protoreflect.EnumType {
+func (BalanceSnapshot_DiffType) Type() protoreflect.EnumType {
 	return &file_balance_snapshot_proto_enumTypes[0]
 }
 
-func (x DiffType) Number() protoreflect.EnumNumber {
+func (x BalanceSnapshot_DiffType) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use DiffType.Descriptor instead.
-func (DiffType) EnumDescriptor() ([]byte, []int) {
-	return file_balance_snapshot_proto_rawDescGZIP(), []int{0}
-}
-
-type Item struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Symbol        string                 `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side          string                 `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
-	Amount        float64                `protobuf:"fixed64,3,opt,name=amount,proto3" json:"amount,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Item) Reset() {
-	*x = Item{}
-	mi := &file_balance_snapshot_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Item) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Item) ProtoMessage() {}
-
-func (x *Item) ProtoReflect() protoreflect.Message {
-	mi := &file_balance_snapshot_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Item.ProtoReflect.Descriptor instead.
-func (*Item) Descriptor() ([]byte, []int) {
-	return file_balance_snapshot_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Item) GetSymbol() string {
-	if x != nil {
-		return x.Symbol
-	}
-	return ""
-}
-
-func (x *Item) GetSide() string {
-	if x != nil {
-		return x.Side
-	}
-	return ""
-}
-
-func (x *Item) GetAmount() float64 {
-	if x != nil {
-		return x.Amount
-	}
-	return 0
-}
-
-type ItemDiff struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Symbol         string                 `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side           string                 `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
-	PreviousAmount float64                `protobuf:"fixed64,3,opt,name=previous_amount,json=previousAmount,proto3" json:"previous_amount,omitempty"`
-	CurrentAmount  float64                `protobuf:"fixed64,4,opt,name=current_amount,json=currentAmount,proto3" json:"current_amount,omitempty"`
-	DeltaAmount    float64                `protobuf:"fixed64,5,opt,name=delta_amount,json=deltaAmount,proto3" json:"delta_amount,omitempty"`
-	Type           DiffType               `protobuf:"varint,6,opt,name=type,proto3,enum=stonkflow.DiffType" json:"type,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
-}
-
-func (x *ItemDiff) Reset() {
-	*x = ItemDiff{}
-	mi := &file_balance_snapshot_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ItemDiff) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ItemDiff) ProtoMessage() {}
-
-func (x *ItemDiff) ProtoReflect() protoreflect.Message {
-	mi := &file_balance_snapshot_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ItemDiff.ProtoReflect.Descriptor instead.
-func (*ItemDiff) Descriptor() ([]byte, []int) {
-	return file_balance_snapshot_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *ItemDiff) GetSymbol() string {
-	if x != nil {
-		return x.Symbol
-	}
-	return ""
-}
-
-func (x *ItemDiff) GetSide() string {
-	if x != nil {
-		return x.Side
-	}
-	return ""
-}
-
-func (x *ItemDiff) GetPreviousAmount() float64 {
-	if x != nil {
-		return x.PreviousAmount
-	}
-	return 0
-}
-
-func (x *ItemDiff) GetCurrentAmount() float64 {
-	if x != nil {
-		return x.CurrentAmount
-	}
-	return 0
-}
-
-func (x *ItemDiff) GetDeltaAmount() float64 {
-	if x != nil {
-		return x.DeltaAmount
-	}
-	return 0
-}
-
-func (x *ItemDiff) GetType() DiffType {
-	if x != nil {
-		return x.Type
-	}
-	return DiffType_DIFF_TYPE_UNSPECIFIED
-}
-
-type Diff struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PreviousTime  int64                  `protobuf:"varint,1,opt,name=previous_time,json=previousTime,proto3" json:"previous_time,omitempty"`
-	CurrentTime   int64                  `protobuf:"varint,2,opt,name=current_time,json=currentTime,proto3" json:"current_time,omitempty"`
-	Changes       []*ItemDiff            `protobuf:"bytes,3,rep,name=changes,proto3" json:"changes,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Diff) Reset() {
-	*x = Diff{}
-	mi := &file_balance_snapshot_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Diff) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Diff) ProtoMessage() {}
-
-func (x *Diff) ProtoReflect() protoreflect.Message {
-	mi := &file_balance_snapshot_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Diff.ProtoReflect.Descriptor instead.
-func (*Diff) Descriptor() ([]byte, []int) {
-	return file_balance_snapshot_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *Diff) GetPreviousTime() int64 {
-	if x != nil {
-		return x.PreviousTime
-	}
-	return 0
-}
-
-func (x *Diff) GetCurrentTime() int64 {
-	if x != nil {
-		return x.CurrentTime
-	}
-	return 0
-}
-
-func (x *Diff) GetChanges() []*ItemDiff {
-	if x != nil {
-		return x.Changes
-	}
-	return nil
+// Deprecated: Use BalanceSnapshot_DiffType.Descriptor instead.
+func (BalanceSnapshot_DiffType) EnumDescriptor() ([]byte, []int) {
+	return file_balance_snapshot_proto_rawDescGZIP(), []int{0, 0}
 }
 
 type BalanceSnapshot struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Time          int64                  `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
-	Items         []*Item                `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
-	Diff          *Diff                  `protobuf:"bytes,3,opt,name=diff,proto3" json:"diff,omitempty"`
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Time          int64                   `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
+	Items         []*BalanceSnapshot_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Diff          *BalanceSnapshot_Diff   `protobuf:"bytes,3,opt,name=diff,proto3" json:"diff,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *BalanceSnapshot) Reset() {
 	*x = BalanceSnapshot{}
-	mi := &file_balance_snapshot_proto_msgTypes[3]
+	mi := &file_balance_snapshot_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -300,7 +96,7 @@ func (x *BalanceSnapshot) String() string {
 func (*BalanceSnapshot) ProtoMessage() {}
 
 func (x *BalanceSnapshot) ProtoReflect() protoreflect.Message {
-	mi := &file_balance_snapshot_proto_msgTypes[3]
+	mi := &file_balance_snapshot_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -313,7 +109,7 @@ func (x *BalanceSnapshot) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BalanceSnapshot.ProtoReflect.Descriptor instead.
 func (*BalanceSnapshot) Descriptor() ([]byte, []int) {
-	return file_balance_snapshot_proto_rawDescGZIP(), []int{3}
+	return file_balance_snapshot_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *BalanceSnapshot) GetTime() int64 {
@@ -323,16 +119,220 @@ func (x *BalanceSnapshot) GetTime() int64 {
 	return 0
 }
 
-func (x *BalanceSnapshot) GetItems() []*Item {
+func (x *BalanceSnapshot) GetItems() []*BalanceSnapshot_Item {
 	if x != nil {
 		return x.Items
 	}
 	return nil
 }
 
-func (x *BalanceSnapshot) GetDiff() *Diff {
+func (x *BalanceSnapshot) GetDiff() *BalanceSnapshot_Diff {
 	if x != nil {
 		return x.Diff
+	}
+	return nil
+}
+
+type BalanceSnapshot_Item struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Symbol        string                 `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side          string                 `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
+	Amount        float64                `protobuf:"fixed64,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BalanceSnapshot_Item) Reset() {
+	*x = BalanceSnapshot_Item{}
+	mi := &file_balance_snapshot_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BalanceSnapshot_Item) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BalanceSnapshot_Item) ProtoMessage() {}
+
+func (x *BalanceSnapshot_Item) ProtoReflect() protoreflect.Message {
+	mi := &file_balance_snapshot_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BalanceSnapshot_Item.ProtoReflect.Descriptor instead.
+func (*BalanceSnapshot_Item) Descriptor() ([]byte, []int) {
+	return file_balance_snapshot_proto_rawDescGZIP(), []int{0, 0}
+}
+
+func (x *BalanceSnapshot_Item) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *BalanceSnapshot_Item) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *BalanceSnapshot_Item) GetAmount() float64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+type BalanceSnapshot_ItemDiff struct {
+	state          protoimpl.MessageState   `protogen:"open.v1"`
+	Symbol         string                   `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side           string                   `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
+	PreviousAmount float64                  `protobuf:"fixed64,3,opt,name=previous_amount,json=previousAmount,proto3" json:"previous_amount,omitempty"`
+	CurrentAmount  float64                  `protobuf:"fixed64,4,opt,name=current_amount,json=currentAmount,proto3" json:"current_amount,omitempty"`
+	DeltaAmount    float64                  `protobuf:"fixed64,5,opt,name=delta_amount,json=deltaAmount,proto3" json:"delta_amount,omitempty"`
+	Type           BalanceSnapshot_DiffType `protobuf:"varint,6,opt,name=type,proto3,enum=stonkflow.BalanceSnapshot_DiffType" json:"type,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *BalanceSnapshot_ItemDiff) Reset() {
+	*x = BalanceSnapshot_ItemDiff{}
+	mi := &file_balance_snapshot_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BalanceSnapshot_ItemDiff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BalanceSnapshot_ItemDiff) ProtoMessage() {}
+
+func (x *BalanceSnapshot_ItemDiff) ProtoReflect() protoreflect.Message {
+	mi := &file_balance_snapshot_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BalanceSnapshot_ItemDiff.ProtoReflect.Descriptor instead.
+func (*BalanceSnapshot_ItemDiff) Descriptor() ([]byte, []int) {
+	return file_balance_snapshot_proto_rawDescGZIP(), []int{0, 1}
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetPreviousAmount() float64 {
+	if x != nil {
+		return x.PreviousAmount
+	}
+	return 0
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetCurrentAmount() float64 {
+	if x != nil {
+		return x.CurrentAmount
+	}
+	return 0
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetDeltaAmount() float64 {
+	if x != nil {
+		return x.DeltaAmount
+	}
+	return 0
+}
+
+func (x *BalanceSnapshot_ItemDiff) GetType() BalanceSnapshot_DiffType {
+	if x != nil {
+		return x.Type
+	}
+	return BalanceSnapshot_DIFF_TYPE_UNSPECIFIED
+}
+
+type BalanceSnapshot_Diff struct {
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	PreviousTime  int64                       `protobuf:"varint,1,opt,name=previous_time,json=previousTime,proto3" json:"previous_time,omitempty"`
+	CurrentTime   int64                       `protobuf:"varint,2,opt,name=current_time,json=currentTime,proto3" json:"current_time,omitempty"`
+	Changes       []*BalanceSnapshot_ItemDiff `protobuf:"bytes,3,rep,name=changes,proto3" json:"changes,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BalanceSnapshot_Diff) Reset() {
+	*x = BalanceSnapshot_Diff{}
+	mi := &file_balance_snapshot_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BalanceSnapshot_Diff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BalanceSnapshot_Diff) ProtoMessage() {}
+
+func (x *BalanceSnapshot_Diff) ProtoReflect() protoreflect.Message {
+	mi := &file_balance_snapshot_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BalanceSnapshot_Diff.ProtoReflect.Descriptor instead.
+func (*BalanceSnapshot_Diff) Descriptor() ([]byte, []int) {
+	return file_balance_snapshot_proto_rawDescGZIP(), []int{0, 2}
+}
+
+func (x *BalanceSnapshot_Diff) GetPreviousTime() int64 {
+	if x != nil {
+		return x.PreviousTime
+	}
+	return 0
+}
+
+func (x *BalanceSnapshot_Diff) GetCurrentTime() int64 {
+	if x != nil {
+		return x.CurrentTime
+	}
+	return 0
+}
+
+func (x *BalanceSnapshot_Diff) GetChanges() []*BalanceSnapshot_ItemDiff {
+	if x != nil {
+		return x.Changes
 	}
 	return nil
 }
@@ -341,26 +341,26 @@ var File_balance_snapshot_proto protoreflect.FileDescriptor
 
 const file_balance_snapshot_proto_rawDesc = "" +
 	"\n" +
-	"\x16balance_snapshot.proto\x12\tstonkflow\"J\n" +
+	"\x16balance_snapshot.proto\x12\tstonkflow\"\xbc\x05\n" +
+	"\x0fBalanceSnapshot\x12\x12\n" +
+	"\x04time\x18\x01 \x01(\x03R\x04time\x125\n" +
+	"\x05items\x18\x02 \x03(\v2\x1f.stonkflow.BalanceSnapshot.ItemR\x05items\x123\n" +
+	"\x04diff\x18\x03 \x01(\v2\x1f.stonkflow.BalanceSnapshot.DiffR\x04diff\x1aJ\n" +
 	"\x04Item\x12\x16\n" +
 	"\x06symbol\x18\x01 \x01(\tR\x06symbol\x12\x12\n" +
 	"\x04side\x18\x02 \x01(\tR\x04side\x12\x16\n" +
-	"\x06amount\x18\x03 \x01(\x01R\x06amount\"\xd2\x01\n" +
+	"\x06amount\x18\x03 \x01(\x01R\x06amount\x1a\xe2\x01\n" +
 	"\bItemDiff\x12\x16\n" +
 	"\x06symbol\x18\x01 \x01(\tR\x06symbol\x12\x12\n" +
 	"\x04side\x18\x02 \x01(\tR\x04side\x12'\n" +
 	"\x0fprevious_amount\x18\x03 \x01(\x01R\x0epreviousAmount\x12%\n" +
 	"\x0ecurrent_amount\x18\x04 \x01(\x01R\rcurrentAmount\x12!\n" +
-	"\fdelta_amount\x18\x05 \x01(\x01R\vdeltaAmount\x12'\n" +
-	"\x04type\x18\x06 \x01(\x0e2\x13.stonkflow.DiffTypeR\x04type\"}\n" +
+	"\fdelta_amount\x18\x05 \x01(\x01R\vdeltaAmount\x127\n" +
+	"\x04type\x18\x06 \x01(\x0e2#.stonkflow.BalanceSnapshot.DiffTypeR\x04type\x1a\x8d\x01\n" +
 	"\x04Diff\x12#\n" +
 	"\rprevious_time\x18\x01 \x01(\x03R\fpreviousTime\x12!\n" +
-	"\fcurrent_time\x18\x02 \x01(\x03R\vcurrentTime\x12-\n" +
-	"\achanges\x18\x03 \x03(\v2\x13.stonkflow.ItemDiffR\achanges\"q\n" +
-	"\x0fBalanceSnapshot\x12\x12\n" +
-	"\x04time\x18\x01 \x01(\x03R\x04time\x12%\n" +
-	"\x05items\x18\x02 \x03(\v2\x0f.stonkflow.ItemR\x05items\x12#\n" +
-	"\x04diff\x18\x03 \x01(\v2\x0f.stonkflow.DiffR\x04diff*h\n" +
+	"\fcurrent_time\x18\x02 \x01(\x03R\vcurrentTime\x12=\n" +
+	"\achanges\x18\x03 \x03(\v2#.stonkflow.BalanceSnapshot.ItemDiffR\achanges\"h\n" +
 	"\bDiffType\x12\x19\n" +
 	"\x15DIFF_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fDIFF_TYPE_ADDED\x10\x01\x12\x15\n" +
@@ -382,17 +382,17 @@ func file_balance_snapshot_proto_rawDescGZIP() []byte {
 var file_balance_snapshot_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_balance_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_balance_snapshot_proto_goTypes = []any{
-	(DiffType)(0),           // 0: stonkflow.DiffType
-	(*Item)(nil),            // 1: stonkflow.Item
-	(*ItemDiff)(nil),        // 2: stonkflow.ItemDiff
-	(*Diff)(nil),            // 3: stonkflow.Diff
-	(*BalanceSnapshot)(nil), // 4: stonkflow.BalanceSnapshot
+	(BalanceSnapshot_DiffType)(0),    // 0: stonkflow.BalanceSnapshot.DiffType
+	(*BalanceSnapshot)(nil),          // 1: stonkflow.BalanceSnapshot
+	(*BalanceSnapshot_Item)(nil),     // 2: stonkflow.BalanceSnapshot.Item
+	(*BalanceSnapshot_ItemDiff)(nil), // 3: stonkflow.BalanceSnapshot.ItemDiff
+	(*BalanceSnapshot_Diff)(nil),     // 4: stonkflow.BalanceSnapshot.Diff
 }
 var file_balance_snapshot_proto_depIdxs = []int32{
-	0, // 0: stonkflow.ItemDiff.type:type_name -> stonkflow.DiffType
-	2, // 1: stonkflow.Diff.changes:type_name -> stonkflow.ItemDiff
-	1, // 2: stonkflow.BalanceSnapshot.items:type_name -> stonkflow.Item
-	3, // 3: stonkflow.BalanceSnapshot.diff:type_name -> stonkflow.Diff
+	2, // 0: stonkflow.BalanceSnapshot.items:type_name -> stonkflow.BalanceSnapshot.Item
+	4, // 1: stonkflow.BalanceSnapshot.diff:type_name -> stonkflow.BalanceSnapshot.Diff
+	0, // 2: stonkflow.BalanceSnapshot.ItemDiff.type:type_name -> stonkflow.BalanceSnapshot.DiffType
+	3, // 3: stonkflow.BalanceSnapshot.Diff.changes:type_name -> stonkflow.BalanceSnapshot.ItemDiff
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

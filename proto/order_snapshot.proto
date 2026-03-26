@@ -5,6 +5,7 @@ package stonkflow;
 option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 
 message OrderSnapshot {
+
   message Item {
     string order_id = 1;
     string client_order_id = 2;

@@ -5,6 +5,7 @@ package stonkflow;
 option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 
 message PositionSnapshot {
+
   message Item {
     string symbol = 1;
     string side = 2;
