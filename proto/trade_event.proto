@@ -7,6 +7,6 @@ option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 message TradeEvent {
   int64 time = 1;
   string symbol = 3;
-  int64 quantity = 4;
-  int64 price = 5;
+  double quantity = 4;
+  double price = 5;
 }

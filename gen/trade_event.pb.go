@@ -25,8 +25,8 @@ type TradeEvent struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Time          int64                  `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
 	Symbol        string                 `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Quantity      int64                  `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Price         int64                  `protobuf:"varint,5,opt,name=price,proto3" json:"price,omitempty"`
+	Quantity      float64                `protobuf:"fixed64,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Price         float64                `protobuf:"fixed64,5,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -75,14 +75,14 @@ func (x *TradeEvent) GetSymbol() string {
 	return ""
 }
 
-func (x *TradeEvent) GetQuantity() int64 {
+func (x *TradeEvent) GetQuantity() float64 {
 	if x != nil {
 		return x.Quantity
 	}
 	return 0
 }
 
-func (x *TradeEvent) GetPrice() int64 {
+func (x *TradeEvent) GetPrice() float64 {
 	if x != nil {
 		return x.Price
 	}
@@ -98,8 +98,8 @@ const file_trade_event_proto_rawDesc = "" +
 	"TradeEvent\x12\x12\n" +
 	"\x04time\x18\x01 \x01(\x03R\x04time\x12\x16\n" +
 	"\x06symbol\x18\x03 \x01(\tR\x06symbol\x12\x1a\n" +
-	"\bquantity\x18\x04 \x01(\x03R\bquantity\x12\x14\n" +
-	"\x05price\x18\x05 \x01(\x03R\x05priceB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
+	"\bquantity\x18\x04 \x01(\x01R\bquantity\x12\x14\n" +
+	"\x05price\x18\x05 \x01(\x01R\x05priceB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
 
 var (
 	file_trade_event_proto_rawDescOnce sync.Once

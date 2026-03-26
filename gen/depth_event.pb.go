@@ -23,8 +23,8 @@ const (
 
 type DepthLevel struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Price         int64                  `protobuf:"varint,1,opt,name=price,proto3" json:"price,omitempty"`
-	Quantity      int64                  `protobuf:"varint,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Price         float64                `protobuf:"fixed64,1,opt,name=price,proto3" json:"price,omitempty"`
+	Quantity      float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -59,14 +59,14 @@ func (*DepthLevel) Descriptor() ([]byte, []int) {
 	return file_depth_event_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *DepthLevel) GetPrice() int64 {
+func (x *DepthLevel) GetPrice() float64 {
 	if x != nil {
 		return x.Price
 	}
 	return 0
 }
 
-func (x *DepthLevel) GetQuantity() int64 {
+func (x *DepthLevel) GetQuantity() float64 {
 	if x != nil {
 		return x.Quantity
 	}
@@ -148,8 +148,8 @@ const file_depth_event_proto_rawDesc = "" +
 	"\x11depth_event.proto\x12\tstonkflow\">\n" +
 	"\n" +
 	"DepthLevel\x12\x14\n" +
-	"\x05price\x18\x01 \x01(\x03R\x05price\x12\x1a\n" +
-	"\bquantity\x18\x02 \x01(\x03R\bquantity\"\x8e\x01\n" +
+	"\x05price\x18\x01 \x01(\x01R\x05price\x12\x1a\n" +
+	"\bquantity\x18\x02 \x01(\x01R\bquantity\"\x8e\x01\n" +
 	"\n" +
 	"DepthEvent\x12\x12\n" +
 	"\x04time\x18\x01 \x01(\x03R\x04time\x12\x16\n" +

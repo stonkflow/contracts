@@ -5,8 +5,8 @@ package stonkflow;
 option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 
 message DepthLevel {
-  int64 price = 1;
-  int64 quantity = 2;
+  double price = 1;
+  double quantity = 2;
 }
 
 message DepthEvent {
