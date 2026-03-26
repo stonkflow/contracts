@@ -93,13 +93,13 @@ var File_trade_event_proto protoreflect.FileDescriptor
 
 const file_trade_event_proto_rawDesc = "" +
 	"\n" +
-	"\x11trade_event.proto\x12\tstonkflow\"j\n" +
+	"\x11trade_event.proto\x12\tstonkflow\"p\n" +
 	"\n" +
 	"TradeEvent\x12\x12\n" +
 	"\x04time\x18\x01 \x01(\x03R\x04time\x12\x16\n" +
 	"\x06symbol\x18\x03 \x01(\tR\x06symbol\x12\x1a\n" +
 	"\bquantity\x18\x04 \x01(\x01R\bquantity\x12\x14\n" +
-	"\x05price\x18\x05 \x01(\x01R\x05priceB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
+	"\x05price\x18\x05 \x01(\x01R\x05priceJ\x04\b\x02\x10\x03B.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
 
 var (
 	file_trade_event_proto_rawDescOnce sync.Once

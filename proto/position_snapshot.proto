@@ -5,12 +5,42 @@ package stonkflow;
 option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 
 message PositionSnapshot {
-  string session_id = 1;
-  string exchange = 2;
-  string market = 3;
-  string symbol = 4;
-  int64 quantity = 5;
-  int64 entry_price = 6;
-  int64 unrealized_pnl = 7;
-  int64 updated_at_unix = 8;
+  message Item {
+    string symbol = 1;
+    string side = 2;
+    double quantity = 3;
+    double entry_price = 4;
+    double unrealized_pnl = 5;
+  }
+
+  enum DiffType {
+    DIFF_TYPE_UNSPECIFIED = 0;
+    DIFF_TYPE_ADDED = 1;
+    DIFF_TYPE_REMOVED = 2;
+    DIFF_TYPE_UPDATED = 3;
+  }
+
+  message ItemDiff {
+    string symbol = 1;
+    string side = 2;
+    double previous_quantity = 3;
+    double current_quantity = 4;
+    double delta_quantity = 5;
+    double previous_entry_price = 6;
+    double current_entry_price = 7;
+    double previous_unrealized_pnl = 8;
+    double current_unrealized_pnl = 9;
+    double delta_unrealized_pnl = 10;
+    DiffType type = 11;
+  }
+
+  message Diff {
+    int64 previous_time = 1;
+    int64 current_time = 2;
+    repeated ItemDiff changes = 3;
+  }
+
+  int64 time = 1;
+  repeated Item items = 2;
+  Diff diff = 3;
 }

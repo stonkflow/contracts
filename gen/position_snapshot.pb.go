@@ -21,16 +21,63 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type PositionSnapshot_DiffType int32
+
+const (
+	PositionSnapshot_DIFF_TYPE_UNSPECIFIED PositionSnapshot_DiffType = 0
+	PositionSnapshot_DIFF_TYPE_ADDED       PositionSnapshot_DiffType = 1
+	PositionSnapshot_DIFF_TYPE_REMOVED     PositionSnapshot_DiffType = 2
+	PositionSnapshot_DIFF_TYPE_UPDATED     PositionSnapshot_DiffType = 3
+)
+
+// Enum value maps for PositionSnapshot_DiffType.
+var (
+	PositionSnapshot_DiffType_name = map[int32]string{
+		0: "DIFF_TYPE_UNSPECIFIED",
+		1: "DIFF_TYPE_ADDED",
+		2: "DIFF_TYPE_REMOVED",
+		3: "DIFF_TYPE_UPDATED",
+	}
+	PositionSnapshot_DiffType_value = map[string]int32{
+		"DIFF_TYPE_UNSPECIFIED": 0,
+		"DIFF_TYPE_ADDED":       1,
+		"DIFF_TYPE_REMOVED":     2,
+		"DIFF_TYPE_UPDATED":     3,
+	}
+)
+
+func (x PositionSnapshot_DiffType) Enum() *PositionSnapshot_DiffType {
+	p := new(PositionSnapshot_DiffType)
+	*p = x
+	return p
+}
+
+func (x PositionSnapshot_DiffType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PositionSnapshot_DiffType) Descriptor() protoreflect.EnumDescriptor {
+	return file_position_snapshot_proto_enumTypes[0].Descriptor()
+}
+
+func (PositionSnapshot_DiffType) Type() protoreflect.EnumType {
+	return &file_position_snapshot_proto_enumTypes[0]
+}
+
+func (x PositionSnapshot_DiffType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PositionSnapshot_DiffType.Descriptor instead.
+func (PositionSnapshot_DiffType) EnumDescriptor() ([]byte, []int) {
+	return file_position_snapshot_proto_rawDescGZIP(), []int{0, 0}
+}
+
 type PositionSnapshot struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	Exchange      string                 `protobuf:"bytes,2,opt,name=exchange,proto3" json:"exchange,omitempty"`
-	Market        string                 `protobuf:"bytes,3,opt,name=market,proto3" json:"market,omitempty"`
-	Symbol        string                 `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Quantity      int64                  `protobuf:"varint,5,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	EntryPrice    int64                  `protobuf:"varint,6,opt,name=entry_price,json=entryPrice,proto3" json:"entry_price,omitempty"`
-	UnrealizedPnl int64                  `protobuf:"varint,7,opt,name=unrealized_pnl,json=unrealizedPnl,proto3" json:"unrealized_pnl,omitempty"`
-	UpdatedAtUnix int64                  `protobuf:"varint,8,opt,name=updated_at_unix,json=updatedAtUnix,proto3" json:"updated_at_unix,omitempty"`
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	Time          int64                    `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
+	Items         []*PositionSnapshot_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Diff          *PositionSnapshot_Diff   `protobuf:"bytes,3,opt,name=diff,proto3" json:"diff,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -65,78 +112,325 @@ func (*PositionSnapshot) Descriptor() ([]byte, []int) {
 	return file_position_snapshot_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *PositionSnapshot) GetSessionId() string {
+func (x *PositionSnapshot) GetTime() int64 {
 	if x != nil {
-		return x.SessionId
+		return x.Time
 	}
-	return ""
+	return 0
 }
 
-func (x *PositionSnapshot) GetExchange() string {
+func (x *PositionSnapshot) GetItems() []*PositionSnapshot_Item {
 	if x != nil {
-		return x.Exchange
+		return x.Items
 	}
-	return ""
+	return nil
 }
 
-func (x *PositionSnapshot) GetMarket() string {
+func (x *PositionSnapshot) GetDiff() *PositionSnapshot_Diff {
 	if x != nil {
-		return x.Market
+		return x.Diff
 	}
-	return ""
+	return nil
 }
 
-func (x *PositionSnapshot) GetSymbol() string {
+type PositionSnapshot_Item struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Symbol        string                 `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side          string                 `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
+	Quantity      float64                `protobuf:"fixed64,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	EntryPrice    float64                `protobuf:"fixed64,4,opt,name=entry_price,json=entryPrice,proto3" json:"entry_price,omitempty"`
+	UnrealizedPnl float64                `protobuf:"fixed64,5,opt,name=unrealized_pnl,json=unrealizedPnl,proto3" json:"unrealized_pnl,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PositionSnapshot_Item) Reset() {
+	*x = PositionSnapshot_Item{}
+	mi := &file_position_snapshot_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PositionSnapshot_Item) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PositionSnapshot_Item) ProtoMessage() {}
+
+func (x *PositionSnapshot_Item) ProtoReflect() protoreflect.Message {
+	mi := &file_position_snapshot_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PositionSnapshot_Item.ProtoReflect.Descriptor instead.
+func (*PositionSnapshot_Item) Descriptor() ([]byte, []int) {
+	return file_position_snapshot_proto_rawDescGZIP(), []int{0, 0}
+}
+
+func (x *PositionSnapshot_Item) GetSymbol() string {
 	if x != nil {
 		return x.Symbol
 	}
 	return ""
 }
 
-func (x *PositionSnapshot) GetQuantity() int64 {
+func (x *PositionSnapshot_Item) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *PositionSnapshot_Item) GetQuantity() float64 {
 	if x != nil {
 		return x.Quantity
 	}
 	return 0
 }
 
-func (x *PositionSnapshot) GetEntryPrice() int64 {
+func (x *PositionSnapshot_Item) GetEntryPrice() float64 {
 	if x != nil {
 		return x.EntryPrice
 	}
 	return 0
 }
 
-func (x *PositionSnapshot) GetUnrealizedPnl() int64 {
+func (x *PositionSnapshot_Item) GetUnrealizedPnl() float64 {
 	if x != nil {
 		return x.UnrealizedPnl
 	}
 	return 0
 }
 
-func (x *PositionSnapshot) GetUpdatedAtUnix() int64 {
+type PositionSnapshot_ItemDiff struct {
+	state                 protoimpl.MessageState    `protogen:"open.v1"`
+	Symbol                string                    `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side                  string                    `protobuf:"bytes,2,opt,name=side,proto3" json:"side,omitempty"`
+	PreviousQuantity      float64                   `protobuf:"fixed64,3,opt,name=previous_quantity,json=previousQuantity,proto3" json:"previous_quantity,omitempty"`
+	CurrentQuantity       float64                   `protobuf:"fixed64,4,opt,name=current_quantity,json=currentQuantity,proto3" json:"current_quantity,omitempty"`
+	DeltaQuantity         float64                   `protobuf:"fixed64,5,opt,name=delta_quantity,json=deltaQuantity,proto3" json:"delta_quantity,omitempty"`
+	PreviousEntryPrice    float64                   `protobuf:"fixed64,6,opt,name=previous_entry_price,json=previousEntryPrice,proto3" json:"previous_entry_price,omitempty"`
+	CurrentEntryPrice     float64                   `protobuf:"fixed64,7,opt,name=current_entry_price,json=currentEntryPrice,proto3" json:"current_entry_price,omitempty"`
+	PreviousUnrealizedPnl float64                   `protobuf:"fixed64,8,opt,name=previous_unrealized_pnl,json=previousUnrealizedPnl,proto3" json:"previous_unrealized_pnl,omitempty"`
+	CurrentUnrealizedPnl  float64                   `protobuf:"fixed64,9,opt,name=current_unrealized_pnl,json=currentUnrealizedPnl,proto3" json:"current_unrealized_pnl,omitempty"`
+	DeltaUnrealizedPnl    float64                   `protobuf:"fixed64,10,opt,name=delta_unrealized_pnl,json=deltaUnrealizedPnl,proto3" json:"delta_unrealized_pnl,omitempty"`
+	Type                  PositionSnapshot_DiffType `protobuf:"varint,11,opt,name=type,proto3,enum=stonkflow.PositionSnapshot_DiffType" json:"type,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *PositionSnapshot_ItemDiff) Reset() {
+	*x = PositionSnapshot_ItemDiff{}
+	mi := &file_position_snapshot_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PositionSnapshot_ItemDiff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PositionSnapshot_ItemDiff) ProtoMessage() {}
+
+func (x *PositionSnapshot_ItemDiff) ProtoReflect() protoreflect.Message {
+	mi := &file_position_snapshot_proto_msgTypes[2]
 	if x != nil {
-		return x.UpdatedAtUnix
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PositionSnapshot_ItemDiff.ProtoReflect.Descriptor instead.
+func (*PositionSnapshot_ItemDiff) Descriptor() ([]byte, []int) {
+	return file_position_snapshot_proto_rawDescGZIP(), []int{0, 1}
+}
+
+func (x *PositionSnapshot_ItemDiff) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *PositionSnapshot_ItemDiff) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *PositionSnapshot_ItemDiff) GetPreviousQuantity() float64 {
+	if x != nil {
+		return x.PreviousQuantity
 	}
 	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetCurrentQuantity() float64 {
+	if x != nil {
+		return x.CurrentQuantity
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetDeltaQuantity() float64 {
+	if x != nil {
+		return x.DeltaQuantity
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetPreviousEntryPrice() float64 {
+	if x != nil {
+		return x.PreviousEntryPrice
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetCurrentEntryPrice() float64 {
+	if x != nil {
+		return x.CurrentEntryPrice
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetPreviousUnrealizedPnl() float64 {
+	if x != nil {
+		return x.PreviousUnrealizedPnl
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetCurrentUnrealizedPnl() float64 {
+	if x != nil {
+		return x.CurrentUnrealizedPnl
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetDeltaUnrealizedPnl() float64 {
+	if x != nil {
+		return x.DeltaUnrealizedPnl
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_ItemDiff) GetType() PositionSnapshot_DiffType {
+	if x != nil {
+		return x.Type
+	}
+	return PositionSnapshot_DIFF_TYPE_UNSPECIFIED
+}
+
+type PositionSnapshot_Diff struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	PreviousTime  int64                        `protobuf:"varint,1,opt,name=previous_time,json=previousTime,proto3" json:"previous_time,omitempty"`
+	CurrentTime   int64                        `protobuf:"varint,2,opt,name=current_time,json=currentTime,proto3" json:"current_time,omitempty"`
+	Changes       []*PositionSnapshot_ItemDiff `protobuf:"bytes,3,rep,name=changes,proto3" json:"changes,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PositionSnapshot_Diff) Reset() {
+	*x = PositionSnapshot_Diff{}
+	mi := &file_position_snapshot_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PositionSnapshot_Diff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PositionSnapshot_Diff) ProtoMessage() {}
+
+func (x *PositionSnapshot_Diff) ProtoReflect() protoreflect.Message {
+	mi := &file_position_snapshot_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PositionSnapshot_Diff.ProtoReflect.Descriptor instead.
+func (*PositionSnapshot_Diff) Descriptor() ([]byte, []int) {
+	return file_position_snapshot_proto_rawDescGZIP(), []int{0, 2}
+}
+
+func (x *PositionSnapshot_Diff) GetPreviousTime() int64 {
+	if x != nil {
+		return x.PreviousTime
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_Diff) GetCurrentTime() int64 {
+	if x != nil {
+		return x.CurrentTime
+	}
+	return 0
+}
+
+func (x *PositionSnapshot_Diff) GetChanges() []*PositionSnapshot_ItemDiff {
+	if x != nil {
+		return x.Changes
+	}
+	return nil
 }
 
 var File_position_snapshot_proto protoreflect.FileDescriptor
 
 const file_position_snapshot_proto_rawDesc = "" +
 	"\n" +
-	"\x17position_snapshot.proto\x12\tstonkflow\"\x89\x02\n" +
-	"\x10PositionSnapshot\x12\x1d\n" +
-	"\n" +
-	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x1a\n" +
-	"\bexchange\x18\x02 \x01(\tR\bexchange\x12\x16\n" +
-	"\x06market\x18\x03 \x01(\tR\x06market\x12\x16\n" +
-	"\x06symbol\x18\x04 \x01(\tR\x06symbol\x12\x1a\n" +
-	"\bquantity\x18\x05 \x01(\x03R\bquantity\x12\x1f\n" +
-	"\ventry_price\x18\x06 \x01(\x03R\n" +
+	"\x17position_snapshot.proto\x12\tstonkflow\"\x9c\b\n" +
+	"\x10PositionSnapshot\x12\x12\n" +
+	"\x04time\x18\x01 \x01(\x03R\x04time\x126\n" +
+	"\x05items\x18\x02 \x03(\v2 .stonkflow.PositionSnapshot.ItemR\x05items\x124\n" +
+	"\x04diff\x18\x03 \x01(\v2 .stonkflow.PositionSnapshot.DiffR\x04diff\x1a\x96\x01\n" +
+	"\x04Item\x12\x16\n" +
+	"\x06symbol\x18\x01 \x01(\tR\x06symbol\x12\x12\n" +
+	"\x04side\x18\x02 \x01(\tR\x04side\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x01R\bquantity\x12\x1f\n" +
+	"\ventry_price\x18\x04 \x01(\x01R\n" +
 	"entryPrice\x12%\n" +
-	"\x0eunrealized_pnl\x18\a \x01(\x03R\runrealizedPnl\x12&\n" +
-	"\x0fupdated_at_unix\x18\b \x01(\x03R\rupdatedAtUnixB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
+	"\x0eunrealized_pnl\x18\x05 \x01(\x01R\runrealizedPnl\x1a\xf1\x03\n" +
+	"\bItemDiff\x12\x16\n" +
+	"\x06symbol\x18\x01 \x01(\tR\x06symbol\x12\x12\n" +
+	"\x04side\x18\x02 \x01(\tR\x04side\x12+\n" +
+	"\x11previous_quantity\x18\x03 \x01(\x01R\x10previousQuantity\x12)\n" +
+	"\x10current_quantity\x18\x04 \x01(\x01R\x0fcurrentQuantity\x12%\n" +
+	"\x0edelta_quantity\x18\x05 \x01(\x01R\rdeltaQuantity\x120\n" +
+	"\x14previous_entry_price\x18\x06 \x01(\x01R\x12previousEntryPrice\x12.\n" +
+	"\x13current_entry_price\x18\a \x01(\x01R\x11currentEntryPrice\x126\n" +
+	"\x17previous_unrealized_pnl\x18\b \x01(\x01R\x15previousUnrealizedPnl\x124\n" +
+	"\x16current_unrealized_pnl\x18\t \x01(\x01R\x14currentUnrealizedPnl\x120\n" +
+	"\x14delta_unrealized_pnl\x18\n" +
+	" \x01(\x01R\x12deltaUnrealizedPnl\x128\n" +
+	"\x04type\x18\v \x01(\x0e2$.stonkflow.PositionSnapshot.DiffTypeR\x04type\x1a\x8e\x01\n" +
+	"\x04Diff\x12#\n" +
+	"\rprevious_time\x18\x01 \x01(\x03R\fpreviousTime\x12!\n" +
+	"\fcurrent_time\x18\x02 \x01(\x03R\vcurrentTime\x12>\n" +
+	"\achanges\x18\x03 \x03(\v2$.stonkflow.PositionSnapshot.ItemDiffR\achanges\"h\n" +
+	"\bDiffType\x12\x19\n" +
+	"\x15DIFF_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
+	"\x0fDIFF_TYPE_ADDED\x10\x01\x12\x15\n" +
+	"\x11DIFF_TYPE_REMOVED\x10\x02\x12\x15\n" +
+	"\x11DIFF_TYPE_UPDATED\x10\x03B.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
 
 var (
 	file_position_snapshot_proto_rawDescOnce sync.Once
@@ -150,16 +444,25 @@ func file_position_snapshot_proto_rawDescGZIP() []byte {
 	return file_position_snapshot_proto_rawDescData
 }
 
-var file_position_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_position_snapshot_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_position_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_position_snapshot_proto_goTypes = []any{
-	(*PositionSnapshot)(nil), // 0: stonkflow.PositionSnapshot
+	(PositionSnapshot_DiffType)(0),    // 0: stonkflow.PositionSnapshot.DiffType
+	(*PositionSnapshot)(nil),          // 1: stonkflow.PositionSnapshot
+	(*PositionSnapshot_Item)(nil),     // 2: stonkflow.PositionSnapshot.Item
+	(*PositionSnapshot_ItemDiff)(nil), // 3: stonkflow.PositionSnapshot.ItemDiff
+	(*PositionSnapshot_Diff)(nil),     // 4: stonkflow.PositionSnapshot.Diff
 }
 var file_position_snapshot_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: stonkflow.PositionSnapshot.items:type_name -> stonkflow.PositionSnapshot.Item
+	4, // 1: stonkflow.PositionSnapshot.diff:type_name -> stonkflow.PositionSnapshot.Diff
+	0, // 2: stonkflow.PositionSnapshot.ItemDiff.type:type_name -> stonkflow.PositionSnapshot.DiffType
+	3, // 3: stonkflow.PositionSnapshot.Diff.changes:type_name -> stonkflow.PositionSnapshot.ItemDiff
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_position_snapshot_proto_init() }
@@ -172,13 +475,14 @@ func file_position_snapshot_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_position_snapshot_proto_rawDesc), len(file_position_snapshot_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
+			NumEnums:      1,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_position_snapshot_proto_goTypes,
 		DependencyIndexes: file_position_snapshot_proto_depIdxs,
+		EnumInfos:         file_position_snapshot_proto_enumTypes,
 		MessageInfos:      file_position_snapshot_proto_msgTypes,
 	}.Build()
 	File_position_snapshot_proto = out.File

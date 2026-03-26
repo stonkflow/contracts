@@ -21,21 +21,65 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type OrderSnapshot_DiffType int32
+
+const (
+	OrderSnapshot_DIFF_TYPE_UNSPECIFIED OrderSnapshot_DiffType = 0
+	OrderSnapshot_DIFF_TYPE_ADDED       OrderSnapshot_DiffType = 1
+	OrderSnapshot_DIFF_TYPE_REMOVED     OrderSnapshot_DiffType = 2
+	OrderSnapshot_DIFF_TYPE_UPDATED     OrderSnapshot_DiffType = 3
+)
+
+// Enum value maps for OrderSnapshot_DiffType.
+var (
+	OrderSnapshot_DiffType_name = map[int32]string{
+		0: "DIFF_TYPE_UNSPECIFIED",
+		1: "DIFF_TYPE_ADDED",
+		2: "DIFF_TYPE_REMOVED",
+		3: "DIFF_TYPE_UPDATED",
+	}
+	OrderSnapshot_DiffType_value = map[string]int32{
+		"DIFF_TYPE_UNSPECIFIED": 0,
+		"DIFF_TYPE_ADDED":       1,
+		"DIFF_TYPE_REMOVED":     2,
+		"DIFF_TYPE_UPDATED":     3,
+	}
+)
+
+func (x OrderSnapshot_DiffType) Enum() *OrderSnapshot_DiffType {
+	p := new(OrderSnapshot_DiffType)
+	*p = x
+	return p
+}
+
+func (x OrderSnapshot_DiffType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (OrderSnapshot_DiffType) Descriptor() protoreflect.EnumDescriptor {
+	return file_order_snapshot_proto_enumTypes[0].Descriptor()
+}
+
+func (OrderSnapshot_DiffType) Type() protoreflect.EnumType {
+	return &file_order_snapshot_proto_enumTypes[0]
+}
+
+func (x OrderSnapshot_DiffType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use OrderSnapshot_DiffType.Descriptor instead.
+func (OrderSnapshot_DiffType) EnumDescriptor() ([]byte, []int) {
+	return file_order_snapshot_proto_rawDescGZIP(), []int{0, 0}
+}
+
 type OrderSnapshot struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	SessionId         string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	Exchange          string                 `protobuf:"bytes,2,opt,name=exchange,proto3" json:"exchange,omitempty"`
-	Market            string                 `protobuf:"bytes,3,opt,name=market,proto3" json:"market,omitempty"`
-	OrderId           string                 `protobuf:"bytes,4,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	ClientOrderId     string                 `protobuf:"bytes,5,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
-	Symbol            string                 `protobuf:"bytes,6,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Status            string                 `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
-	FilledQuantity    int64                  `protobuf:"varint,8,opt,name=filled_quantity,json=filledQuantity,proto3" json:"filled_quantity,omitempty"`
-	RemainingQuantity int64                  `protobuf:"varint,9,opt,name=remaining_quantity,json=remainingQuantity,proto3" json:"remaining_quantity,omitempty"`
-	Price             int64                  `protobuf:"varint,10,opt,name=price,proto3" json:"price,omitempty"`
-	UpdatedAtUnix     int64                  `protobuf:"varint,11,opt,name=updated_at_unix,json=updatedAtUnix,proto3" json:"updated_at_unix,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Time          int64                  `protobuf:"varint,1,opt,name=time,proto3" json:"time,omitempty"`
+	Items         []*OrderSnapshot_Item  `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Diff          *OrderSnapshot_Diff    `protobuf:"bytes,3,opt,name=diff,proto3" json:"diff,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderSnapshot) Reset() {
@@ -68,102 +112,397 @@ func (*OrderSnapshot) Descriptor() ([]byte, []int) {
 	return file_order_snapshot_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *OrderSnapshot) GetSessionId() string {
+func (x *OrderSnapshot) GetTime() int64 {
 	if x != nil {
-		return x.SessionId
+		return x.Time
 	}
-	return ""
+	return 0
 }
 
-func (x *OrderSnapshot) GetExchange() string {
+func (x *OrderSnapshot) GetItems() []*OrderSnapshot_Item {
 	if x != nil {
-		return x.Exchange
+		return x.Items
 	}
-	return ""
+	return nil
 }
 
-func (x *OrderSnapshot) GetMarket() string {
+func (x *OrderSnapshot) GetDiff() *OrderSnapshot_Diff {
 	if x != nil {
-		return x.Market
+		return x.Diff
 	}
-	return ""
+	return nil
 }
 
-func (x *OrderSnapshot) GetOrderId() string {
+type OrderSnapshot_Item struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	OrderId           string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	ClientOrderId     string                 `protobuf:"bytes,2,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
+	Symbol            string                 `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side              string                 `protobuf:"bytes,4,opt,name=side,proto3" json:"side,omitempty"`
+	Status            string                 `protobuf:"bytes,5,opt,name=status,proto3" json:"status,omitempty"`
+	Quantity          float64                `protobuf:"fixed64,6,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	FilledQuantity    float64                `protobuf:"fixed64,7,opt,name=filled_quantity,json=filledQuantity,proto3" json:"filled_quantity,omitempty"`
+	RemainingQuantity float64                `protobuf:"fixed64,8,opt,name=remaining_quantity,json=remainingQuantity,proto3" json:"remaining_quantity,omitempty"`
+	Price             float64                `protobuf:"fixed64,9,opt,name=price,proto3" json:"price,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *OrderSnapshot_Item) Reset() {
+	*x = OrderSnapshot_Item{}
+	mi := &file_order_snapshot_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderSnapshot_Item) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderSnapshot_Item) ProtoMessage() {}
+
+func (x *OrderSnapshot_Item) ProtoReflect() protoreflect.Message {
+	mi := &file_order_snapshot_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderSnapshot_Item.ProtoReflect.Descriptor instead.
+func (*OrderSnapshot_Item) Descriptor() ([]byte, []int) {
+	return file_order_snapshot_proto_rawDescGZIP(), []int{0, 0}
+}
+
+func (x *OrderSnapshot_Item) GetOrderId() string {
 	if x != nil {
 		return x.OrderId
 	}
 	return ""
 }
 
-func (x *OrderSnapshot) GetClientOrderId() string {
+func (x *OrderSnapshot_Item) GetClientOrderId() string {
 	if x != nil {
 		return x.ClientOrderId
 	}
 	return ""
 }
 
-func (x *OrderSnapshot) GetSymbol() string {
+func (x *OrderSnapshot_Item) GetSymbol() string {
 	if x != nil {
 		return x.Symbol
 	}
 	return ""
 }
 
-func (x *OrderSnapshot) GetStatus() string {
+func (x *OrderSnapshot_Item) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_Item) GetStatus() string {
 	if x != nil {
 		return x.Status
 	}
 	return ""
 }
 
-func (x *OrderSnapshot) GetFilledQuantity() int64 {
+func (x *OrderSnapshot_Item) GetQuantity() float64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_Item) GetFilledQuantity() float64 {
 	if x != nil {
 		return x.FilledQuantity
 	}
 	return 0
 }
 
-func (x *OrderSnapshot) GetRemainingQuantity() int64 {
+func (x *OrderSnapshot_Item) GetRemainingQuantity() float64 {
 	if x != nil {
 		return x.RemainingQuantity
 	}
 	return 0
 }
 
-func (x *OrderSnapshot) GetPrice() int64 {
+func (x *OrderSnapshot_Item) GetPrice() float64 {
 	if x != nil {
 		return x.Price
 	}
 	return 0
 }
 
-func (x *OrderSnapshot) GetUpdatedAtUnix() int64 {
+type OrderSnapshot_ItemDiff struct {
+	state                     protoimpl.MessageState `protogen:"open.v1"`
+	OrderId                   string                 `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	ClientOrderId             string                 `protobuf:"bytes,2,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
+	Symbol                    string                 `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side                      string                 `protobuf:"bytes,4,opt,name=side,proto3" json:"side,omitempty"`
+	PreviousStatus            string                 `protobuf:"bytes,5,opt,name=previous_status,json=previousStatus,proto3" json:"previous_status,omitempty"`
+	CurrentStatus             string                 `protobuf:"bytes,6,opt,name=current_status,json=currentStatus,proto3" json:"current_status,omitempty"`
+	PreviousQuantity          float64                `protobuf:"fixed64,7,opt,name=previous_quantity,json=previousQuantity,proto3" json:"previous_quantity,omitempty"`
+	CurrentQuantity           float64                `protobuf:"fixed64,8,opt,name=current_quantity,json=currentQuantity,proto3" json:"current_quantity,omitempty"`
+	PreviousFilledQuantity    float64                `protobuf:"fixed64,9,opt,name=previous_filled_quantity,json=previousFilledQuantity,proto3" json:"previous_filled_quantity,omitempty"`
+	CurrentFilledQuantity     float64                `protobuf:"fixed64,10,opt,name=current_filled_quantity,json=currentFilledQuantity,proto3" json:"current_filled_quantity,omitempty"`
+	PreviousRemainingQuantity float64                `protobuf:"fixed64,11,opt,name=previous_remaining_quantity,json=previousRemainingQuantity,proto3" json:"previous_remaining_quantity,omitempty"`
+	CurrentRemainingQuantity  float64                `protobuf:"fixed64,12,opt,name=current_remaining_quantity,json=currentRemainingQuantity,proto3" json:"current_remaining_quantity,omitempty"`
+	PreviousPrice             float64                `protobuf:"fixed64,13,opt,name=previous_price,json=previousPrice,proto3" json:"previous_price,omitempty"`
+	CurrentPrice              float64                `protobuf:"fixed64,14,opt,name=current_price,json=currentPrice,proto3" json:"current_price,omitempty"`
+	Type                      OrderSnapshot_DiffType `protobuf:"varint,15,opt,name=type,proto3,enum=stonkflow.OrderSnapshot_DiffType" json:"type,omitempty"`
+	unknownFields             protoimpl.UnknownFields
+	sizeCache                 protoimpl.SizeCache
+}
+
+func (x *OrderSnapshot_ItemDiff) Reset() {
+	*x = OrderSnapshot_ItemDiff{}
+	mi := &file_order_snapshot_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderSnapshot_ItemDiff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderSnapshot_ItemDiff) ProtoMessage() {}
+
+func (x *OrderSnapshot_ItemDiff) ProtoReflect() protoreflect.Message {
+	mi := &file_order_snapshot_proto_msgTypes[2]
 	if x != nil {
-		return x.UpdatedAtUnix
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderSnapshot_ItemDiff.ProtoReflect.Descriptor instead.
+func (*OrderSnapshot_ItemDiff) Descriptor() ([]byte, []int) {
+	return file_order_snapshot_proto_rawDescGZIP(), []int{0, 1}
+}
+
+func (x *OrderSnapshot_ItemDiff) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetClientOrderId() string {
+	if x != nil {
+		return x.ClientOrderId
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetSide() string {
+	if x != nil {
+		return x.Side
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetPreviousStatus() string {
+	if x != nil {
+		return x.PreviousStatus
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetCurrentStatus() string {
+	if x != nil {
+		return x.CurrentStatus
+	}
+	return ""
+}
+
+func (x *OrderSnapshot_ItemDiff) GetPreviousQuantity() float64 {
+	if x != nil {
+		return x.PreviousQuantity
 	}
 	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetCurrentQuantity() float64 {
+	if x != nil {
+		return x.CurrentQuantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetPreviousFilledQuantity() float64 {
+	if x != nil {
+		return x.PreviousFilledQuantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetCurrentFilledQuantity() float64 {
+	if x != nil {
+		return x.CurrentFilledQuantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetPreviousRemainingQuantity() float64 {
+	if x != nil {
+		return x.PreviousRemainingQuantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetCurrentRemainingQuantity() float64 {
+	if x != nil {
+		return x.CurrentRemainingQuantity
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetPreviousPrice() float64 {
+	if x != nil {
+		return x.PreviousPrice
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetCurrentPrice() float64 {
+	if x != nil {
+		return x.CurrentPrice
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_ItemDiff) GetType() OrderSnapshot_DiffType {
+	if x != nil {
+		return x.Type
+	}
+	return OrderSnapshot_DIFF_TYPE_UNSPECIFIED
+}
+
+type OrderSnapshot_Diff struct {
+	state         protoimpl.MessageState    `protogen:"open.v1"`
+	PreviousTime  int64                     `protobuf:"varint,1,opt,name=previous_time,json=previousTime,proto3" json:"previous_time,omitempty"`
+	CurrentTime   int64                     `protobuf:"varint,2,opt,name=current_time,json=currentTime,proto3" json:"current_time,omitempty"`
+	Changes       []*OrderSnapshot_ItemDiff `protobuf:"bytes,3,rep,name=changes,proto3" json:"changes,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderSnapshot_Diff) Reset() {
+	*x = OrderSnapshot_Diff{}
+	mi := &file_order_snapshot_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderSnapshot_Diff) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderSnapshot_Diff) ProtoMessage() {}
+
+func (x *OrderSnapshot_Diff) ProtoReflect() protoreflect.Message {
+	mi := &file_order_snapshot_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderSnapshot_Diff.ProtoReflect.Descriptor instead.
+func (*OrderSnapshot_Diff) Descriptor() ([]byte, []int) {
+	return file_order_snapshot_proto_rawDescGZIP(), []int{0, 2}
+}
+
+func (x *OrderSnapshot_Diff) GetPreviousTime() int64 {
+	if x != nil {
+		return x.PreviousTime
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_Diff) GetCurrentTime() int64 {
+	if x != nil {
+		return x.CurrentTime
+	}
+	return 0
+}
+
+func (x *OrderSnapshot_Diff) GetChanges() []*OrderSnapshot_ItemDiff {
+	if x != nil {
+		return x.Changes
+	}
+	return nil
 }
 
 var File_order_snapshot_proto protoreflect.FileDescriptor
 
 const file_order_snapshot_proto_rawDesc = "" +
 	"\n" +
-	"\x14order_snapshot.proto\x12\tstonkflow\"\xeb\x02\n" +
-	"\rOrderSnapshot\x12\x1d\n" +
+	"\x14order_snapshot.proto\x12\tstonkflow\"\xb4\n" +
 	"\n" +
-	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x1a\n" +
-	"\bexchange\x18\x02 \x01(\tR\bexchange\x12\x16\n" +
-	"\x06market\x18\x03 \x01(\tR\x06market\x12\x19\n" +
-	"\border_id\x18\x04 \x01(\tR\aorderId\x12&\n" +
-	"\x0fclient_order_id\x18\x05 \x01(\tR\rclientOrderId\x12\x16\n" +
-	"\x06symbol\x18\x06 \x01(\tR\x06symbol\x12\x16\n" +
-	"\x06status\x18\a \x01(\tR\x06status\x12'\n" +
-	"\x0ffilled_quantity\x18\b \x01(\x03R\x0efilledQuantity\x12-\n" +
-	"\x12remaining_quantity\x18\t \x01(\x03R\x11remainingQuantity\x12\x14\n" +
-	"\x05price\x18\n" +
-	" \x01(\x03R\x05price\x12&\n" +
-	"\x0fupdated_at_unix\x18\v \x01(\x03R\rupdatedAtUnixB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
+	"\rOrderSnapshot\x12\x12\n" +
+	"\x04time\x18\x01 \x01(\x03R\x04time\x123\n" +
+	"\x05items\x18\x02 \x03(\v2\x1d.stonkflow.OrderSnapshot.ItemR\x05items\x121\n" +
+	"\x04diff\x18\x03 \x01(\v2\x1d.stonkflow.OrderSnapshot.DiffR\x04diff\x1a\x97\x02\n" +
+	"\x04Item\x12\x19\n" +
+	"\border_id\x18\x01 \x01(\tR\aorderId\x12&\n" +
+	"\x0fclient_order_id\x18\x02 \x01(\tR\rclientOrderId\x12\x16\n" +
+	"\x06symbol\x18\x03 \x01(\tR\x06symbol\x12\x12\n" +
+	"\x04side\x18\x04 \x01(\tR\x04side\x12\x16\n" +
+	"\x06status\x18\x05 \x01(\tR\x06status\x12\x1a\n" +
+	"\bquantity\x18\x06 \x01(\x01R\bquantity\x12'\n" +
+	"\x0ffilled_quantity\x18\a \x01(\x01R\x0efilledQuantity\x12-\n" +
+	"\x12remaining_quantity\x18\b \x01(\x01R\x11remainingQuantity\x12\x14\n" +
+	"\x05price\x18\t \x01(\x01R\x05price\x1a\x94\x05\n" +
+	"\bItemDiff\x12\x19\n" +
+	"\border_id\x18\x01 \x01(\tR\aorderId\x12&\n" +
+	"\x0fclient_order_id\x18\x02 \x01(\tR\rclientOrderId\x12\x16\n" +
+	"\x06symbol\x18\x03 \x01(\tR\x06symbol\x12\x12\n" +
+	"\x04side\x18\x04 \x01(\tR\x04side\x12'\n" +
+	"\x0fprevious_status\x18\x05 \x01(\tR\x0epreviousStatus\x12%\n" +
+	"\x0ecurrent_status\x18\x06 \x01(\tR\rcurrentStatus\x12+\n" +
+	"\x11previous_quantity\x18\a \x01(\x01R\x10previousQuantity\x12)\n" +
+	"\x10current_quantity\x18\b \x01(\x01R\x0fcurrentQuantity\x128\n" +
+	"\x18previous_filled_quantity\x18\t \x01(\x01R\x16previousFilledQuantity\x126\n" +
+	"\x17current_filled_quantity\x18\n" +
+	" \x01(\x01R\x15currentFilledQuantity\x12>\n" +
+	"\x1bprevious_remaining_quantity\x18\v \x01(\x01R\x19previousRemainingQuantity\x12<\n" +
+	"\x1acurrent_remaining_quantity\x18\f \x01(\x01R\x18currentRemainingQuantity\x12%\n" +
+	"\x0eprevious_price\x18\r \x01(\x01R\rpreviousPrice\x12#\n" +
+	"\rcurrent_price\x18\x0e \x01(\x01R\fcurrentPrice\x125\n" +
+	"\x04type\x18\x0f \x01(\x0e2!.stonkflow.OrderSnapshot.DiffTypeR\x04type\x1a\x8b\x01\n" +
+	"\x04Diff\x12#\n" +
+	"\rprevious_time\x18\x01 \x01(\x03R\fpreviousTime\x12!\n" +
+	"\fcurrent_time\x18\x02 \x01(\x03R\vcurrentTime\x12;\n" +
+	"\achanges\x18\x03 \x03(\v2!.stonkflow.OrderSnapshot.ItemDiffR\achanges\"h\n" +
+	"\bDiffType\x12\x19\n" +
+	"\x15DIFF_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
+	"\x0fDIFF_TYPE_ADDED\x10\x01\x12\x15\n" +
+	"\x11DIFF_TYPE_REMOVED\x10\x02\x12\x15\n" +
+	"\x11DIFF_TYPE_UPDATED\x10\x03B.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
 
 var (
 	file_order_snapshot_proto_rawDescOnce sync.Once
@@ -177,16 +516,25 @@ func file_order_snapshot_proto_rawDescGZIP() []byte {
 	return file_order_snapshot_proto_rawDescData
 }
 
-var file_order_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_order_snapshot_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_order_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_order_snapshot_proto_goTypes = []any{
-	(*OrderSnapshot)(nil), // 0: stonkflow.OrderSnapshot
+	(OrderSnapshot_DiffType)(0),    // 0: stonkflow.OrderSnapshot.DiffType
+	(*OrderSnapshot)(nil),          // 1: stonkflow.OrderSnapshot
+	(*OrderSnapshot_Item)(nil),     // 2: stonkflow.OrderSnapshot.Item
+	(*OrderSnapshot_ItemDiff)(nil), // 3: stonkflow.OrderSnapshot.ItemDiff
+	(*OrderSnapshot_Diff)(nil),     // 4: stonkflow.OrderSnapshot.Diff
 }
 var file_order_snapshot_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: stonkflow.OrderSnapshot.items:type_name -> stonkflow.OrderSnapshot.Item
+	4, // 1: stonkflow.OrderSnapshot.diff:type_name -> stonkflow.OrderSnapshot.Diff
+	0, // 2: stonkflow.OrderSnapshot.ItemDiff.type:type_name -> stonkflow.OrderSnapshot.DiffType
+	3, // 3: stonkflow.OrderSnapshot.Diff.changes:type_name -> stonkflow.OrderSnapshot.ItemDiff
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_order_snapshot_proto_init() }
@@ -199,13 +547,14 @@ func file_order_snapshot_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_snapshot_proto_rawDesc), len(file_order_snapshot_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
+			NumEnums:      1,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_order_snapshot_proto_goTypes,
 		DependencyIndexes: file_order_snapshot_proto_depIdxs,
+		EnumInfos:         file_order_snapshot_proto_enumTypes,
 		MessageInfos:      file_order_snapshot_proto_msgTypes,
 	}.Build()
 	File_order_snapshot_proto = out.File

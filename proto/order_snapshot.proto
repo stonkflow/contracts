@@ -5,15 +5,50 @@ package stonkflow;
 option go_package = "github.com/stonkflow/contracts/gen;stonkflow";
 
 message OrderSnapshot {
-  string session_id = 1;
-  string exchange = 2;
-  string market = 3;
-  string order_id = 4;
-  string client_order_id = 5;
-  string symbol = 6;
-  string status = 7;
-  int64 filled_quantity = 8;
-  int64 remaining_quantity = 9;
-  int64 price = 10;
-  int64 updated_at_unix = 11;
+  message Item {
+    string order_id = 1;
+    string client_order_id = 2;
+    string symbol = 3;
+    string side = 4;
+    string status = 5;
+    double quantity = 6;
+    double filled_quantity = 7;
+    double remaining_quantity = 8;
+    double price = 9;
+  }
+
+  enum DiffType {
+    DIFF_TYPE_UNSPECIFIED = 0;
+    DIFF_TYPE_ADDED = 1;
+    DIFF_TYPE_REMOVED = 2;
+    DIFF_TYPE_UPDATED = 3;
+  }
+
+  message ItemDiff {
+    string order_id = 1;
+    string client_order_id = 2;
+    string symbol = 3;
+    string side = 4;
+    string previous_status = 5;
+    string current_status = 6;
+    double previous_quantity = 7;
+    double current_quantity = 8;
+    double previous_filled_quantity = 9;
+    double current_filled_quantity = 10;
+    double previous_remaining_quantity = 11;
+    double current_remaining_quantity = 12;
+    double previous_price = 13;
+    double current_price = 14;
+    DiffType type = 15;
+  }
+
+  message Diff {
+    int64 previous_time = 1;
+    int64 current_time = 2;
+    repeated ItemDiff changes = 3;
+  }
+
+  int64 time = 1;
+  repeated Item items = 2;
+  Diff diff = 3;
 }
