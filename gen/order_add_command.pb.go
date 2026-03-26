@@ -23,15 +23,11 @@ const (
 
 type OrderAddCommand struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	SessionId     string                 `protobuf:"bytes,1,opt,name=session_id,json=sessionId,proto3" json:"session_id,omitempty"`
-	Exchange      string                 `protobuf:"bytes,2,opt,name=exchange,proto3" json:"exchange,omitempty"`
-	Market        string                 `protobuf:"bytes,3,opt,name=market,proto3" json:"market,omitempty"`
-	ClientOrderId string                 `protobuf:"bytes,4,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
-	Symbol        string                 `protobuf:"bytes,5,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	Side          string                 `protobuf:"bytes,6,opt,name=side,proto3" json:"side,omitempty"`
-	Quantity      int64                  `protobuf:"varint,7,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Price         int64                  `protobuf:"varint,8,opt,name=price,proto3" json:"price,omitempty"`
-	CreatedAtUnix int64                  `protobuf:"varint,9,opt,name=created_at_unix,json=createdAtUnix,proto3" json:"created_at_unix,omitempty"`
+	ClientOrderId string                 `protobuf:"bytes,1,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
+	Symbol        string                 `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	Side          string                 `protobuf:"bytes,3,opt,name=side,proto3" json:"side,omitempty"`
+	Quantity      float64                `protobuf:"fixed64,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Price         float64                `protobuf:"fixed64,5,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -66,27 +62,6 @@ func (*OrderAddCommand) Descriptor() ([]byte, []int) {
 	return file_order_add_command_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *OrderAddCommand) GetSessionId() string {
-	if x != nil {
-		return x.SessionId
-	}
-	return ""
-}
-
-func (x *OrderAddCommand) GetExchange() string {
-	if x != nil {
-		return x.Exchange
-	}
-	return ""
-}
-
-func (x *OrderAddCommand) GetMarket() string {
-	if x != nil {
-		return x.Market
-	}
-	return ""
-}
-
 func (x *OrderAddCommand) GetClientOrderId() string {
 	if x != nil {
 		return x.ClientOrderId
@@ -108,23 +83,16 @@ func (x *OrderAddCommand) GetSide() string {
 	return ""
 }
 
-func (x *OrderAddCommand) GetQuantity() int64 {
+func (x *OrderAddCommand) GetQuantity() float64 {
 	if x != nil {
 		return x.Quantity
 	}
 	return 0
 }
 
-func (x *OrderAddCommand) GetPrice() int64 {
+func (x *OrderAddCommand) GetPrice() float64 {
 	if x != nil {
 		return x.Price
-	}
-	return 0
-}
-
-func (x *OrderAddCommand) GetCreatedAtUnix() int64 {
-	if x != nil {
-		return x.CreatedAtUnix
 	}
 	return 0
 }
@@ -133,18 +101,13 @@ var File_order_add_command_proto protoreflect.FileDescriptor
 
 const file_order_add_command_proto_rawDesc = "" +
 	"\n" +
-	"\x17order_add_command.proto\x12\tstonkflow\"\x92\x02\n" +
-	"\x0fOrderAddCommand\x12\x1d\n" +
-	"\n" +
-	"session_id\x18\x01 \x01(\tR\tsessionId\x12\x1a\n" +
-	"\bexchange\x18\x02 \x01(\tR\bexchange\x12\x16\n" +
-	"\x06market\x18\x03 \x01(\tR\x06market\x12&\n" +
-	"\x0fclient_order_id\x18\x04 \x01(\tR\rclientOrderId\x12\x16\n" +
-	"\x06symbol\x18\x05 \x01(\tR\x06symbol\x12\x12\n" +
-	"\x04side\x18\x06 \x01(\tR\x04side\x12\x1a\n" +
-	"\bquantity\x18\a \x01(\x03R\bquantity\x12\x14\n" +
-	"\x05price\x18\b \x01(\x03R\x05price\x12&\n" +
-	"\x0fcreated_at_unix\x18\t \x01(\x03R\rcreatedAtUnixB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
+	"\x17order_add_command.proto\x12\tstonkflow\"\x97\x01\n" +
+	"\x0fOrderAddCommand\x12&\n" +
+	"\x0fclient_order_id\x18\x01 \x01(\tR\rclientOrderId\x12\x16\n" +
+	"\x06symbol\x18\x02 \x01(\tR\x06symbol\x12\x12\n" +
+	"\x04side\x18\x03 \x01(\tR\x04side\x12\x1a\n" +
+	"\bquantity\x18\x04 \x01(\x01R\bquantity\x12\x14\n" +
+	"\x05price\x18\x05 \x01(\x01R\x05priceB.Z,github.com/stonkflow/contracts/gen;stonkflowb\x06proto3"
 
 var (
 	file_order_add_command_proto_rawDescOnce sync.Once
